@@ -42,4 +42,24 @@ public class UserController {
         UserDto re = userService.addUser(userDto);
         return modelMapper.map(re, UserRest.class);
     }
+
+    @PatchMapping(path = "/{userId}")
+    public UserRest ProcessUpdate(@PathVariable String userId, @RequestBody UserDetailRequestModel userDetail){
+        UserDto userDto = userService.findByUserId(userId);
+        if(userDetail.getFirstName()!=null){
+            userDto.setFirstName(userDetail.getFirstName());
+        }
+        if(userDetail.getLastName()!=null){
+            userDto.setLastName(userDetail.getLastName());
+        }
+        if(userDetail.getEmail()!=null){
+            userDto.setEmail(userDetail.getEmail());
+        }
+        if(userDetail.getPassword()!=null){
+            userDto.setPassword(userDetail.getPassword());
+        }
+
+        UserDto re = userService.updateUser(userDto);
+        return modelMapper.map(re, UserRest.class);
+    }
 }

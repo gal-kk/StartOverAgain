@@ -9,4 +9,8 @@ public interface UserService {
     UserDto addUser(UserDto userDto);
 
     List<UserDto> findAll();
+
+    UserDto findByUserId(String userId);
+
+    UserDto updateUser(UserDto userDto);
 }

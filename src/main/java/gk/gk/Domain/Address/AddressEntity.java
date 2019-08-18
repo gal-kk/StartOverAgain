@@ -4,10 +4,10 @@ import gk.gk.Domain.UserEntity;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "addresses")
 public class AddressEntity {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue
     private long id;
 
     private String addressId;
@@ -25,6 +25,19 @@ public class AddressEntity {
     @ManyToOne
     @JoinColumn(name = "udemy_id")
     private UserEntity userBelongTo;
+
+    public AddressEntity() {
+    }
+
+    public AddressEntity(String addressId, String city, String country, String streetName, String postalCode, String type, UserEntity userBelongTo) {
+        this.addressId = addressId;
+        this.city = city;
+        this.country = country;
+        this.streetName = streetName;
+        this.postalCode = postalCode;
+        this.type = type;
+        this.userBelongTo = userBelongTo;
+    }
 
     public long getId() {
         return id;

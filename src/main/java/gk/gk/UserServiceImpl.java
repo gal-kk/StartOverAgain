@@ -1,5 +1,6 @@
 package gk.gk;
 
+import gk.gk.Domain.Address.AddressDto;
 import gk.gk.Domain.UserDto;
 import gk.gk.Domain.UserEntity;
 import gk.gk.Domain.UserRest;
@@ -25,6 +26,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto addUser(UserDto userDto) {
+        for (int i = 0; i < userDto.getAddresses().size(); i++) {
+            AddressDto temp = userDto.getAddresses().get(i);
+            temp.setAddressId(utils.AddressIdGen(10));
+            temp.setUserBelongTo(userDto);
+            userDto.getAddresses().set(i, temp);
+        }
         UserEntity userEntity = modelMapper.map(userDto, UserEntity.class);
 
         userEntity.setEncryptedPassword("241234");
@@ -43,5 +50,24 @@ public class UserServiceImpl implements UserService {
         Type listType = new TypeToken<List<UserEntity>>() {}.getType();
         List<UserDto> list = modelMapper.map(reList, listType);
         return list;
+    }
+
+    @Override
+    public UserDto findByUserId(String userId) {
+        UserEntity userEntity = userRepository.findByUserId(userId);
+        if(userEntity==null) throw new RuntimeException(userId);
+
+
+        return modelMapper.map(userEntity, UserDto.class);
+    }
+
+    @Override
+    public UserDto updateUser(UserDto userDto) {
+        UserEntity userEntity = modelMapper.map(userDto, UserEntity.class);
+
+        userEntity.setEncryptedPassword("241234");
+        UserEntity re = userRepository.save(userEntity);
+
+        return modelMapper.map(re, UserDto.class);
     }
 }

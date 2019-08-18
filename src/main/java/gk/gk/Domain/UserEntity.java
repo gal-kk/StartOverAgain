@@ -29,8 +29,20 @@ public class UserEntity implements Serializable {
     @Column(nullable = false)
     private String encryptedPassword;
 
-    @OneToMany(mappedBy = "userBelongTo")
+    @OneToMany(mappedBy = "userBelongTo", cascade = CascadeType.ALL)
     private List<AddressEntity> addresses;
+
+    public UserEntity() {
+    }
+
+    public UserEntity(String firstName, String lastName, String userId, String email, String encryptedPassword, List<AddressEntity> addresses) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userId = userId;
+        this.email = email;
+        this.encryptedPassword = encryptedPassword;
+        this.addresses = addresses;
+    }
 
     public List<AddressEntity> getAddresses() {
         return addresses;
