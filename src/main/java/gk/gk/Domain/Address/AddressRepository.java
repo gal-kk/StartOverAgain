@@ -1,4 +1,9 @@
 package gk.gk.Domain.Address;
 
-public class AddressRepository {
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface AddressRepository extends CrudRepository<AddressEntity, Long> {
+    void deleteByAddressId(String addressId);
 }

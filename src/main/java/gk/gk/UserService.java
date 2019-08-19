@@ -1,11 +1,11 @@
 package gk.gk;
 
-import gk.gk.Domain.UserDto;
-import gk.gk.Domain.UserRest;
+import gk.gk.Domain.User.UserDto;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
     UserDto addUser(UserDto userDto);
 
     List<UserDto> findAll();
@@ -13,4 +13,6 @@ public interface UserService {
     UserDto findByUserId(String userId);
 
     UserDto updateUser(UserDto userDto);
+
+    UserDto findByEmail(String userName);
 }

@@ -1,6 +1,6 @@
 package gk.gk.Domain.Address;
 
-import gk.gk.Domain.UserDto;
+import gk.gk.Domain.User.UserDto;
 
 public class AddressDto {
     private long id;

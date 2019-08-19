@@ -1,12 +1,13 @@
 package gk.gk;
 
-import gk.gk.Domain.UserDetailRequestModel;
-import gk.gk.Domain.UserDto;
-import gk.gk.Domain.UserEntity;
-import gk.gk.Domain.UserRest;
+import gk.gk.Domain.Address.AddressDto;
+import gk.gk.Domain.Address.AddressRequestModel;
+import gk.gk.Domain.Address.AddressService;
+import gk.gk.Domain.User.UserDetailRequestModel;
+import gk.gk.Domain.User.UserDto;
+import gk.gk.Domain.User.UserRest;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,11 +21,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AddressService addressService;
+
+    @Autowired
+    Utils utils;
+
     ModelMapper modelMapper = new ModelMapper();
 
     @GetMapping
     public List<UserRest> ProcessGet() {
-        List<UserRest> users = new ArrayList<>();
         List<UserDto> usersDto = userService.findAll();
 
         Type listType = new TypeToken<List<UserRest>>() {}.getType();
@@ -36,7 +42,6 @@ public class UserController {
     @PostMapping
     public UserRest ProcessPost(@RequestBody UserDetailRequestModel userDetail) {
 
-        UserRest userRest = new UserRest();
         UserDto userDto = modelMapper.map(userDetail, UserDto.class);
 
         UserDto re = userService.addUser(userDto);
@@ -57,6 +62,18 @@ public class UserController {
         }
         if(userDetail.getPassword()!=null){
             userDto.setPassword(userDetail.getPassword());
+        }
+        if(userDetail.getAddresses()!=null){
+            List<AddressDto> addresses = new ArrayList<>();
+            for(int i=0; i< userDetail.getAddresses().size();i++){
+                AddressRequestModel addressRequestModel = userDetail.getAddresses().get(i);
+                AddressDto temp = modelMapper.map(addressRequestModel, AddressDto.class);
+                temp.setUserBelongTo(userDto);
+                temp.setAddressId(utils.AddressIdGen(10));
+                addresses.add(temp);
+            }
+            userDto.setAddresses(addresses);
+            addressService.purgeByUserDetail(userDto);
         }
 
         UserDto re = userService.updateUser(userDto);

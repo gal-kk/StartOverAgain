@@ -1,4 +1,7 @@
 package gk.gk.Domain.Address;
 
-public class AddressService {
+import gk.gk.Domain.User.UserDto;
+
+public interface AddressService {
+    void purgeByUserDetail(UserDto userDto);
 }

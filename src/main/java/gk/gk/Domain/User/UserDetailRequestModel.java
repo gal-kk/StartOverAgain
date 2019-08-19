@@ -1,4 +1,4 @@
-package gk.gk.Domain;
+package gk.gk.Domain.User;
 
 import gk.gk.Domain.Address.AddressRequestModel;
 

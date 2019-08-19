@@ -1,4 +1,4 @@
-package gk.gk.Domain;
+package gk.gk.Domain.User;
 
 import gk.gk.Domain.Address.AddressEntity;
 
@@ -29,7 +29,7 @@ public class UserEntity implements Serializable {
     @Column(nullable = false)
     private String encryptedPassword;
 
-    @OneToMany(mappedBy = "userBelongTo", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userBelongTo", orphanRemoval = true, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
     private List<AddressEntity> addresses;
 
     public UserEntity() {

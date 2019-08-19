@@ -1,6 +1,6 @@
 package gk.gk.Domain.Address;
 
-import gk.gk.Domain.UserEntity;
+import gk.gk.Domain.User.UserEntity;
 
 import javax.persistence.*;
 
@@ -22,7 +22,7 @@ public class AddressEntity {
 
     private String type;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
     @JoinColumn(name = "udemy_id")
     private UserEntity userBelongTo;
 
