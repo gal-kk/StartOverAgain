@@ -11,6 +11,14 @@ public class AddressRequestModel {
 
     private String type;
 
+    public AddressRequestModel(String city, String country, String streetName, String postalCode, String type) {
+        this.city = city;
+        this.country = country;
+        this.streetName = streetName;
+        this.postalCode = postalCode;
+        this.type = type;
+    }
+
     public String getCity() {
         return city;
     }
