@@ -1,5 +1,6 @@
 package gk.gk;
 
+import gk.gk.Domain.Address.AddressDto;
 import gk.gk.Domain.User.UserDto;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -15,4 +16,5 @@ public interface UserService extends UserDetailsService {
     UserDto updateUser(UserDto userDto);
 
     UserDto findByEmail(String userName);
+
 }

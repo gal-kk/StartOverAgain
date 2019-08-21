@@ -11,4 +11,5 @@ public class ConsumeApi {
     public static UserRest createUser(UserDetailRequestModel userDetailRequestModel){
         return restTemplate.postForObject("http://localhost:8080/users", userDetailRequestModel, UserRest.class);
     }
+
 }

@@ -1,6 +1,10 @@
 package gk.gk.Domain.Address;
 
-public class AddressRest {
+import org.springframework.hateoas.ResourceSupport;
+
+public class AddressRest{
+    private String addressId;
+
     private String city;
 
     private String country;
@@ -49,5 +53,13 @@ public class AddressRest {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(String addressId) {
+        this.addressId = addressId;
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,6 +39,11 @@ public class AddressServiceImpl implements AddressService {
 //            addressRepository.delete(addressEntity);
 //        }
 
+    }
+
+    @Override
+    public AddressDto findByAddressId(String addressId) {
+        return modelMapper.map(addressRepository.findByAddressId(addressId), AddressDto.class);
     }
 
 }
